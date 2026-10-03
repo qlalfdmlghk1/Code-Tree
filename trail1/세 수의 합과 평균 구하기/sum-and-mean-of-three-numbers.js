@@ -1,0 +1,5 @@
+const fs = require("fs")
+let [A,B,C] = fs.readFileSync(0).toString().trim().split(" ").map(Number)
+avg = parseInt((A+B+C) / 3)
+console.log(A+B+C)
+console.log(avg)
