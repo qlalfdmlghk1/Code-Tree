@@ -1,0 +1,8 @@
+const fs = require("fs")
+let [A,B] = fs.readFileSync(0).toString().trim().split(" ")
+A = Number(A)
+B = Number(B)
+console.log(A+B)
+console.log(A-B)
+console.log(parseInt(A/B))
+console.log(A%B)
