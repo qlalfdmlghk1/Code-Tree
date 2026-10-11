@@ -3,6 +3,16 @@ let input = fs.readFileSync(0).toString().trim().split("\n")
 
 let [n,arr] = [input[0],input[1].split(" ").map(Number)]
 
-arr.sort((a,b) => b - a)
+let [firstMax,secondMax] = [-Infinity,-Infinity]
 
-console.log(arr[0],arr[1])
+for (let a of arr) {
+    if (a > firstMax) {
+        if (firstMax > secondMax) secondMax = firstMax;
+        firstMax = a;
+    }
+    else {
+        if (a > secondMax) secondMax = a;
+    }
+}
+
+console.log(firstMax,secondMax)
