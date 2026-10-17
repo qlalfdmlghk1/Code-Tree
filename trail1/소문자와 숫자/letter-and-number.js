@@ -5,7 +5,7 @@ let answer = ""
 
 for (let s of str) {
     if ((s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'z')) answer += s.toLowerCase()
-    else if (Number(s) >= 0 && Number(s) <= 9) answer += s
+    else if (s >= '0' && s <= '9') answer += s
 }
 
 console.log(answer)
