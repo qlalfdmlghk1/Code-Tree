@@ -2,29 +2,25 @@ const fs = require("fs");
 
 const input = fs.readFileSync(0).toString().trim().split('\n');
 
-const users = [];
-
-class Spy {
-    constructor(codeName, score) {
+class User {
+    constructor(codeName,score) {
         this.codeName = codeName;
         this.score = score;
     }
 }
 
+const users = [];
+
 for (let i = 0; i < 5; i++) {
     const [codename, score] = input[i].split(' ');
-    users.push(new Spy(codename, parseInt(score, 10)));
+    users.push(new User(codename,Number(score)));
 }
 
 // Please Write your code here.
+let minIdx = 0
 
-// 점수가 가장 낮은 요원의 위치를 찾습니다.
-let minIdx = 0;
 for (let i = 1; i < 5; i++) {
-    if (users[minIdx].score > users[i].score) {
-        minIdx = i;
-    }
+    if (users[i].score < users[minIdx].score) minIdx = i;
 }
 
-// 점수가 가장 낮은 요원의 코드네임과 점수를 출력합니다.
-console.log(users[minIdx].codeName, users[minIdx].score);
+console.log(users[minIdx].codeName,users[minIdx].score)
