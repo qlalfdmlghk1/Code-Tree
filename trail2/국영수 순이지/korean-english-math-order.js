@@ -22,16 +22,7 @@ for (const rowStudent of rawStudentData) {
   )
 }
 
-students.sort((a,b) => {
-    if (a.korean === b.korean) {
-      if (a.english === b.english) {
-        return b.math - a.math;
-      }
-      return b.english - a.english
-    }
-    return b.korean - a.korean;
-    }
-)
+students.sort((a,b) => b.korean - a.korean || b.english - a.english || b.math - a.math)
 
 for (let student of students) {
   console.log(student.name, student.korean, student.english, student.math)
