@@ -1,48 +1,62 @@
-const fs = require("fs");
-const input = fs.readFileSync(0).toString().trim().split("\n");
+const fs = require('fs');
+const input = fs.readFileSync(0).toString().trim().split('\n');
 
 const [n, m] = input[0].split(' ').map(Number);
 let line = 1;
 const movesA = [];
 for (let i = 0; i < n; i++) {
-    const [d, t] = input[line++].split(' ');
-    movesA.push([d, Number(t)]);
+  const [d, t] = input[line++].split(' ');
+  movesA.push([d, Number(t)]);
 }
 const movesB = [];
 for (let i = 0; i < m; i++) {
-    const [d, t] = input[line++].split(' ');
-    movesB.push([d, Number(t)]);
+  const [d, t] = input[line++].split(' ');
+  movesB.push([d, Number(t)]);
 }
 
-// Please Write your code here.
-const MAX_T = 100000;
-let posA = Array(MAX_T + 1).fill(0);
-let posB = Array(MAX_T + 1).fill(0);
+timeTableA = Array(1000001).fill(Infinity);
+timeTableB = Array(1000001).fill(Infinity);
 
-let timeA = 1;
+let curA = 0;
+timeTableA[curA] = 0;
 for (let ma of movesA) {
-    const [d,t] = ma
-    for (let j = 0; j < Number(t); j++) {
-        posA[timeA] = posA[timeA - 1] + (d === 'R'? 1 : -1)
-        timeA++;
+  let [d, t] = ma;
+  if (d === 'R') {
+    for (let i = 1; i <= t; i++) {
+      timeTableA[curA + i] = timeTableA[curA] + i;
     }
+  } else if (d === 'L') {
+    for (let i = 1; i <= t; i++) {
+      timeTableA[curA + i] = timeTableA[curA] - i;
+    }
+  }
+  curA += t;
 }
 
-let timeB = 1;
+let curB = 0;
+timeTableB[curB] = 0;
 for (let mb of movesB) {
-    const [d,t] = mb
-    for (let j = 0; j < Number(t); j++) {
-        posB[timeB] = posB[timeB - 1] + (d === 'R'? 1 : -1)
-        timeB++;
+  let [d, t] = mb;
+  if (d === 'R') {
+    for (let i = 1; i <= t; i++) {
+      timeTableB[curB + i] = timeTableB[curB] + i;
     }
+  } else if (d === 'L') {
+    for (let i = 1; i <= t; i++) {
+      timeTableB[curB + i] = timeTableB[curB] - i;
+    }
+  }
+  curB += t;
 }
 
-let ans = -1
-for (let i = 1; i < timeA; i++) {
-    if (posA[i] === posB[i]) {
-        ans = i;
-        break;
-    }
+let answer = -1;
+for (i = 1; i < timeTableB.length; i++) {
+  if (timeTableA[i] === Infinity) break;
+
+  if (timeTableA[i] === timeTableB[i]) {
+    answer = i;
+    break;
+  }
 }
 
-console.log(ans)
+console.log(answer);
