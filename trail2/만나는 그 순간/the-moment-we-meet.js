@@ -50,9 +50,7 @@ for (let mb of movesB) {
 }
 
 let answer = -1;
-for (i = 1; i < timeTableB.length; i++) {
-  if (timeTableA[i] === Infinity) break;
-
+for (i = 1; i <= curA; i++) {
   if (timeTableA[i] === timeTableB[i]) {
     answer = i;
     break;
